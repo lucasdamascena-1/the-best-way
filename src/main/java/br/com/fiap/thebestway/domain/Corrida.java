@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Corrida implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +25,7 @@ public class Corrida implements Serializable {
 	private Double preco;
 	private Integer status;
 
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "CORRIDA_CARRO", joinColumns = @JoinColumn(name = "corrida_id"), inverseJoinColumns = @JoinColumn(name = "carro_id"))
 	private List<Carro> carros = new ArrayList<Carro>();

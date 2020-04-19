@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.thebestway.domain.Carro;
 import br.com.fiap.thebestway.services.CarroService;
+import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value = "/carros")
@@ -18,8 +19,7 @@ public class CarroResource {
 	private CarroService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-
+	public ResponseEntity<?> find(@PathVariable Integer id) throws ObjectNotFoundException {
 		Carro obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
