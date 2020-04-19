@@ -7,14 +7,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.fiap.thebestway.domain.Categoria;
-import br.com.fiap.thebestway.repositories.CategoriaRepository;
+import br.com.fiap.thebestway.domain.Carro;
+import br.com.fiap.thebestway.domain.Corrida;
+import br.com.fiap.thebestway.repositories.CarroRepository;
+import br.com.fiap.thebestway.repositories.CorridaRepository;
 
 @SpringBootApplication
 public class TheBestWayApplication implements CommandLineRunner {
 
 	@Autowired
-	private CategoriaRepository repository;
+	private CarroRepository carroRepository;
+
+	@Autowired
+	private CorridaRepository corridaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TheBestWayApplication.class, args);
@@ -23,12 +28,26 @@ public class TheBestWayApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Categoria categoria1 = new Categoria(null, "X");
-		Categoria categoria2 = new Categoria(null, "VIP");
-		Categoria categoria3 = new Categoria(null, "COMFORT");
-		Categoria categoria4 = new Categoria(null, "BAG");
+		Carro carro1 = new Carro(null, "Acura", "Integra GS 1.8", "1992 Gasolina", "ABC-012");
+		Carro carro2 = new Carro(null, "Cross Lander", "CL-330 2.8 132cv 4x4", "2006 Diesel", "DEF-345");
+		Carro carro3 = new Carro(null, "Honda", "Accord Coupe EX", "1993 Gasolina", "GHI-678");
 
-		repository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4));
+		Corrida corrida1 = new Corrida(null, 1, 10.0, 0);
+		Corrida corrida2 = new Corrida(null, 2, 20.00, 1);
+		Corrida corrida3 = new Corrida(null, 3, 0.00, 1);
+		Corrida corrida4 = new Corrida(null, 1, 45.00, 0);
+
+		carro1.getCorridas().addAll(Arrays.asList(corrida1, corrida2));
+		carro2.getCorridas().addAll(Arrays.asList(corrida3));
+		carro3.getCorridas().addAll(Arrays.asList(corrida4));
+
+		corrida1.getCarros().addAll(Arrays.asList(carro1));
+		corrida2.getCarros().addAll(Arrays.asList(carro1));
+		corrida3.getCarros().addAll(Arrays.asList(carro2));
+		corrida4.getCarros().addAll(Arrays.asList(carro3));
+
+		carroRepository.saveAll(Arrays.asList(carro1, carro2, carro3));
+		corridaRepository.saveAll(Arrays.asList(corrida1, corrida2, corrida3, corrida4));
 
 	}
 }
