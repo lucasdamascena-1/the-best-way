@@ -2,14 +2,22 @@ package br.com.fiap.thebestway.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class CorridaPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@EmbeddedId
 	private CorridaPedidoPK id = new CorridaPedidoPK();
 
 	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
+
+	public CorridaPedido() {
+	}
 
 	public CorridaPedido(Pedido pedido, Corrida corrida, Double desconto, Integer quantidade, Double preco) {
 		super();

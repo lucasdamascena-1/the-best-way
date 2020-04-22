@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -32,6 +33,7 @@ public class Corrida implements Serializable {
 	@JoinTable(name = "CORRIDA_CARRO", joinColumns = @JoinColumn(name = "corrida_id"), inverseJoinColumns = @JoinColumn(name = "carro_id"))
 	private List<Carro> carros = new ArrayList<Carro>();
 
+	@OneToMany(mappedBy = "id.pedido")
 	private Set<CorridaPedido> corridas = new HashSet<>();
 
 	public Corrida() {

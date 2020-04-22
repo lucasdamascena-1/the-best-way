@@ -12,6 +12,7 @@ import br.com.fiap.thebestway.domain.Carro;
 import br.com.fiap.thebestway.domain.Cidade;
 import br.com.fiap.thebestway.domain.Cliente;
 import br.com.fiap.thebestway.domain.Corrida;
+import br.com.fiap.thebestway.domain.CorridaPedido;
 import br.com.fiap.thebestway.domain.Endereco;
 import br.com.fiap.thebestway.domain.Estado;
 import br.com.fiap.thebestway.domain.Pagamento;
@@ -22,6 +23,7 @@ import br.com.fiap.thebestway.domain.enums.EstadoPagamento;
 import br.com.fiap.thebestway.repositories.CarroRepository;
 import br.com.fiap.thebestway.repositories.CidadeRepository;
 import br.com.fiap.thebestway.repositories.ClienteRepository;
+import br.com.fiap.thebestway.repositories.CorridaPedidoRepository;
 import br.com.fiap.thebestway.repositories.CorridaRepository;
 import br.com.fiap.thebestway.repositories.EnderecoRepository;
 import br.com.fiap.thebestway.repositories.EstadoRepository;
@@ -54,6 +56,9 @@ public class TheBestWayApplication implements CommandLineRunner {
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+
+	@Autowired
+	private CorridaPedidoRepository corridaPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TheBestWayApplication.class, args);
@@ -126,5 +131,15 @@ public class TheBestWayApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2));
 
+		CorridaPedido corridaPedido1 = new CorridaPedido(pedido1, corrida1, 0.0, 1, 10.50);
+		CorridaPedido corridaPedido2 = new CorridaPedido(pedido2, corrida2, 2.0, 1, 08.50);
+
+		pedido1.getCorridas().addAll(Arrays.asList(corridaPedido1));
+		pedido2.getCorridas().addAll(Arrays.asList(corridaPedido2));
+
+		corrida1.getCorridas().addAll(Arrays.asList(corridaPedido1));
+		corrida2.getCorridas().addAll(Arrays.asList(corridaPedido2));
+
+		corridaPedidoRepository.saveAll(Arrays.asList(corridaPedido1, corridaPedido2));
 	}
 }

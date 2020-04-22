@@ -18,9 +18,6 @@ public class CorridaPedidoPK implements Serializable {
 	@JoinColumn(name = "corrida_id")
 	private Corrida corrida;
 
-	public CorridaPedidoPK() {
-	}
-
 	public Pedido getPedido() {
 		return pedido;
 	}
