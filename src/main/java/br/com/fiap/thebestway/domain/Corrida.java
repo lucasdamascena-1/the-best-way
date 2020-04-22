@@ -2,7 +2,9 @@ package br.com.fiap.thebestway.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +32,8 @@ public class Corrida implements Serializable {
 	@JoinTable(name = "CORRIDA_CARRO", joinColumns = @JoinColumn(name = "corrida_id"), inverseJoinColumns = @JoinColumn(name = "carro_id"))
 	private List<Carro> carros = new ArrayList<Carro>();
 
+	private Set<CorridaPedido> corridas = new HashSet<>();
+
 	public Corrida() {
 	}
 
@@ -39,6 +43,16 @@ public class Corrida implements Serializable {
 		this.categoria = categoria;
 		this.preco = preco;
 		this.status = status;
+	}
+
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+
+		for (CorridaPedido obj : corridas) {
+			lista.add(obj.getPedido());
+		}
+
+		return lista;
 	}
 
 	public Integer getId() {
@@ -79,6 +93,14 @@ public class Corrida implements Serializable {
 
 	public void setCarros(List<Carro> carros) {
 		this.carros = carros;
+	}
+
+	public Set<CorridaPedido> getCorridas() {
+		return corridas;
+	}
+
+	public void setCorridas(Set<CorridaPedido> corridas) {
+		this.corridas = corridas;
 	}
 
 	@Override
