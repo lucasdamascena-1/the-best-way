@@ -1,6 +1,7 @@
 package br.com.fiap.thebestway.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,12 @@ public class CarroResource {
 	@Autowired
 	private CarroService service;
 
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Carro>> findAll() {
+		List<Carro> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Carro> find(@PathVariable Integer id) throws ObjectNotFoundException {
 		Carro obj = service.find(id);
@@ -40,6 +47,12 @@ public class CarroResource {
 	public ResponseEntity<Void> update(@RequestBody Carro obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 }

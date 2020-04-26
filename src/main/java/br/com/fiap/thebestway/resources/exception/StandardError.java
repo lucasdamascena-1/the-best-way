@@ -1,4 +1,4 @@
-package br.com.fiap.thebestway.services.exception;
+package br.com.fiap.thebestway.resources.exception;
 
 import java.io.Serializable;
 
