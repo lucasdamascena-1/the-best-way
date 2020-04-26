@@ -25,7 +25,7 @@ public class PagamentoComCartao extends Pagamento {
 		this.numeroCartao = numeroCartao;
 		this.numeroDeParcelas = numeroDeParcelas;
 		this.dataVencimento = dataVencimento;
-		this.tipoCartao = tipoCartao.getCodigo();
+		this.tipoCartao = (tipoCartao == null) ? null : tipoCartao.getCodigo();
 	}
 
 	public String getNumeroCartao() {
