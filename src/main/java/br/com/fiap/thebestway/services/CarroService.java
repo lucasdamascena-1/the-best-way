@@ -17,7 +17,11 @@ public class CarroService {
 
 	public Carro find(Integer id) throws ObjectNotFoundException {
 		Optional<Carro> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado!"));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+	}
+
+	public Carro insert(Carro obj) {
+		obj.setId(null);
+		return repository.save(obj);
 	}
 }
