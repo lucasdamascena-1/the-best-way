@@ -24,4 +24,9 @@ public class CarroService {
 		obj.setId(null);
 		return repository.save(obj);
 	}
+
+	public Carro update(Carro obj) {
+		find(obj.getId());
+		return repository.save(obj);
+	}
 }
