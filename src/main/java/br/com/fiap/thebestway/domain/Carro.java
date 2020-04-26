@@ -30,7 +30,7 @@ public class Carro implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.pedido")
-	private Set<CarroPedido> carros = new HashSet<>();
+	private Set<CarroPedido> corrida = new HashSet<>();
 
 	public Carro() {
 	}
@@ -107,19 +107,19 @@ public class Carro implements Serializable {
 	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
 
-		for (CarroPedido obj : carros) {
+		for (CarroPedido obj : corrida) {
 			lista.add(obj.getPedido());
 		}
 
 		return lista;
 	}
 
-	public Set<CarroPedido> getCarros() {
-		return carros;
+	public Set<CarroPedido> getCorrida() {
+		return corrida;
 	}
 
-	public void setCarros(Set<CarroPedido> carros) {
-		this.carros = carros;
+	public void setCorrida(Set<CarroPedido> corrida) {
+		this.corrida = corrida;
 	}
 
 	@Override
