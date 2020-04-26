@@ -3,9 +3,9 @@ package br.com.fiap.thebestway.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.fiap.thebestway.domain.Corrida;
+import br.com.fiap.thebestway.domain.Usuario;
 
 @Repository
-public interface CorridaRepository extends JpaRepository<Corrida, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 }

@@ -10,17 +10,37 @@ import br.com.fiap.thebestway.domain.enums.EstadoPagamento;
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 
+	private String codigo;
+	private Date dataGeracaoBoleto;
 	private Date dataVencimento;
 	private Date dataPagamento;
 
 	public PagamentoComBoleto() {
 	}
 
-	public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataVencimento,
-			Date dataPagamento) {
+	public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, String codigo, Date dataGeracaoBoleto,
+			Date dataVencimento, Date dataPagamento) {
 		super(id, estado, pedido);
+		this.codigo = codigo;
+		this.dataGeracaoBoleto = dataGeracaoBoleto;
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public Date getDataGeracaoBoleto() {
+		return dataGeracaoBoleto;
+	}
+
+	public void setDataGeracaoBoleto(Date dataGeracaoBoleto) {
+		this.dataGeracaoBoleto = dataGeracaoBoleto;
 	}
 
 	public Date getDataVencimento() {

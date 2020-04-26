@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Cliente implements Serializable {
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,28 +27,32 @@ public class Cliente implements Serializable {
 	private String nome;
 	private String email;
 	private String cpf;
+	private String senha;
+	private Integer status;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
+	@OneToMany(mappedBy = "usuario")
+	private List<Destino> destinos = new ArrayList<Destino>();
 
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
 	@JsonBackReference
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "usuario")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
-	public Cliente() {
+	public Usuario() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpf) {
+	public Usuario(Integer id, String nome, String email, String cpf, String senha, Integer status) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpf = cpf;
+		this.senha = senha;
+		this.status = status;
 	}
 
 	public Integer getId() {
@@ -83,12 +87,28 @@ public class Cliente implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public List<Destino> getDestinos() {
+		return destinos;
+	}
+
+	public void setDestinos(List<Destino> destinos) {
+		this.destinos = destinos;
 	}
 
 	public Set<String> getTelefones() {
@@ -123,7 +143,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

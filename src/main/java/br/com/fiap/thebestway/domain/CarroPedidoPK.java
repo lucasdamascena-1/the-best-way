@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class CorridaPedidoPK implements Serializable {
+public class CarroPedidoPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -15,8 +15,8 @@ public class CorridaPedidoPK implements Serializable {
 	private Pedido pedido;
 
 	@ManyToOne
-	@JoinColumn(name = "corrida_id")
-	private Corrida corrida;
+	@JoinColumn(name = "carro_id")
+	private Carro carro;
 
 	public Pedido getPedido() {
 		return pedido;
@@ -26,19 +26,19 @@ public class CorridaPedidoPK implements Serializable {
 		this.pedido = pedido;
 	}
 
-	public Corrida getCorrida() {
-		return corrida;
+	public Carro getCarro() {
+		return carro;
 	}
 
-	public void setCorrida(Corrida corrida) {
-		this.corrida = corrida;
+	public void setCarro(Carro carro) {
+		this.carro = carro;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((corrida == null) ? 0 : corrida.hashCode());
+		result = prime * result + ((carro == null) ? 0 : carro.hashCode());
 		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
 		return result;
 	}
@@ -51,11 +51,11 @@ public class CorridaPedidoPK implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CorridaPedidoPK other = (CorridaPedidoPK) obj;
-		if (corrida == null) {
-			if (other.corrida != null)
+		CarroPedidoPK other = (CarroPedidoPK) obj;
+		if (carro == null) {
+			if (other.carro != null)
 				return false;
-		} else if (!corrida.equals(other.corrida))
+		} else if (!carro.equals(other.carro))
 			return false;
 		if (pedido == null) {
 			if (other.pedido != null)

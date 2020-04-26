@@ -26,31 +26,30 @@ public class Pedido implements Serializable {
 	private Integer id;
 	private Date instante;
 
-	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 
 	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "endereco_de_entrega_id")
-	private Endereco enderecoDeEntrega;
-	
+	@JoinColumn(name = "destino_final_id")
+	private Destino destinoFinal;
+
 	@OneToMany(mappedBy = "id.pedido")
-	private Set<CorridaPedido> corridas = new HashSet<>();
+	private Set<CarroPedido> corrida = new HashSet<>();
 
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+	public Pedido(Integer id, Date instante, Usuario usuario, Destino destinoFinal) {
 		super();
 		this.id = id;
 		this.instante = instante;
-		this.cliente = cliente;
-		this.enderecoDeEntrega = enderecoDeEntrega;
+		this.usuario = usuario;
+		this.destinoFinal = destinoFinal;
 	}
 
 	public Integer getId() {
@@ -77,28 +76,28 @@ public class Pedido implements Serializable {
 		this.pagamento = pagamento;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public Endereco getEnderecoDeEntrega() {
-		return enderecoDeEntrega;
+	public Destino getDestinoFinal() {
+		return destinoFinal;
 	}
 
-	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
-		this.enderecoDeEntrega = enderecoDeEntrega;
+	public void setDestinoFinal(Destino destinoFinal) {
+		this.destinoFinal = destinoFinal;
 	}
 
-	public Set<CorridaPedido> getCorridas() {
-		return corridas;
+	public Set<CarroPedido> getCorrida() {
+		return corrida;
 	}
 
-	public void setCorridas(Set<CorridaPedido> corridas) {
-		this.corridas = corridas;
+	public void setCorrida(Set<CarroPedido> corrida) {
+		this.corrida = corrida;
 	}
 
 	@Override

@@ -5,18 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.thebestway.domain.Cliente;
-import br.com.fiap.thebestway.repositories.ClienteRepository;
+import br.com.fiap.thebestway.domain.Usuario;
+import br.com.fiap.thebestway.repositories.UsuarioRepository;
 import br.com.fiap.thebestway.services.exception.ObjectNotFoundException;
 
 @Service
-public class ClienteService {
+public class UsuarioService {
 
 	@Autowired
-	private ClienteRepository repository;
+	private UsuarioRepository repository;
 
-	public Cliente find(Integer id) throws ObjectNotFoundException {
-		Optional<Cliente> obj = repository.findById(id);
+	public Usuario find(Integer id) throws ObjectNotFoundException {
+		Optional<Usuario> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
 	}
 }

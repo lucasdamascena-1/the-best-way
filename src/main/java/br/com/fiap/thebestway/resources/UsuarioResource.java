@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.thebestway.domain.Cliente;
-import br.com.fiap.thebestway.services.ClienteService;
+import br.com.fiap.thebestway.domain.Usuario;
+import br.com.fiap.thebestway.services.UsuarioService;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteResource {
+@RequestMapping(value = "/usuarios")
+public class UsuarioResource {
 
 	@Autowired
-	private ClienteService service;
+	private UsuarioService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) throws ObjectNotFoundException {
-		Cliente obj = service.find(id);
+		Usuario obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

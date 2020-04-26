@@ -1,16 +1,18 @@
 package br.com.fiap.thebestway.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Carro implements Serializable {
@@ -21,23 +23,28 @@ public class Carro implements Serializable {
 	private Integer id;
 	private String marca;
 	private String modelo;
-	private String ano;
 	private String placa;
+	private Double notaMediaDeViagem;
+	private Integer quantidadeDeCorridas;
+	private Integer disponibilidade;
 
-	@JsonManagedReference
-	@ManyToMany(mappedBy = "carros")
-	private List<Corrida> corridas = new ArrayList<Corrida>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<CarroPedido> carros = new HashSet<>();
 
 	public Carro() {
 	}
 
-	public Carro(Integer id, String marca, String modelo, String ano, String placa) {
+	public Carro(Integer id, String marca, String modelo, String placa, Double notaMediaDeViagem,
+			Integer quantidadeDeCorridas, Integer disponibilidade) {
 		super();
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
-		this.ano = ano;
 		this.placa = placa;
+		this.notaMediaDeViagem = notaMediaDeViagem;
+		this.quantidadeDeCorridas = quantidadeDeCorridas;
+		this.disponibilidade = disponibilidade;
 	}
 
 	public Integer getId() {
@@ -64,14 +71,6 @@ public class Carro implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public String getAno() {
-		return ano;
-	}
-
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
-
 	public String getPlaca() {
 		return placa;
 	}
@@ -80,12 +79,47 @@ public class Carro implements Serializable {
 		this.placa = placa;
 	}
 
-	public List<Corrida> getCorridas() {
-		return corridas;
+	public Double getNotaMediaDeViagem() {
+		return notaMediaDeViagem;
 	}
 
-	public void setCorridas(List<Corrida> corridas) {
-		this.corridas = corridas;
+	public void setNotaMediaDeViagem(Double notaMediaDeViagem) {
+		this.notaMediaDeViagem = notaMediaDeViagem;
+	}
+
+	public Integer getQuantidadeDeCorridas() {
+		return quantidadeDeCorridas;
+	}
+
+	public void setQuantidadeDeCorridas(Integer quantidadeDeCorridas) {
+		this.quantidadeDeCorridas = quantidadeDeCorridas;
+	}
+
+	public Integer getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public void setDisponibilidade(Integer disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
+
+	@JsonIgnore
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+
+		for (CarroPedido obj : carros) {
+			lista.add(obj.getPedido());
+		}
+
+		return lista;
+	}
+
+	public Set<CarroPedido> getCarros() {
+		return carros;
+	}
+
+	public void setCarros(Set<CarroPedido> carros) {
+		this.carros = carros;
 	}
 
 	@Override

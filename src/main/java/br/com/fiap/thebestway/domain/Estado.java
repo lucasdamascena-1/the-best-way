@@ -49,7 +49,7 @@ public class Estado implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public List<Cidade> getCidades() {
 		return cidades;
 	}
