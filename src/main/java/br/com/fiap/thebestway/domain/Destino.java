@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Destino implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,11 +22,6 @@ public class Destino implements Serializable {
 	private String bairro;
 	private String cep;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
-
 	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
@@ -37,7 +30,7 @@ public class Destino implements Serializable {
 	}
 
 	public Destino(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
-			Usuario usuario, Cidade cidade) {
+			Cidade cidade) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -45,7 +38,6 @@ public class Destino implements Serializable {
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
-		this.usuario = usuario;
 		this.cidade = cidade;
 	}
 
@@ -95,14 +87,6 @@ public class Destino implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public Cidade getCidade() {

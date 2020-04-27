@@ -29,9 +29,6 @@ public class Usuario implements Serializable {
 	private String senha;
 	private Integer status;
 
-	@OneToMany(mappedBy = "usuario")
-	private List<Destino> destinos = new ArrayList<Destino>();
-
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
@@ -99,14 +96,6 @@ public class Usuario implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public List<Destino> getDestinos() {
-		return destinos;
-	}
-
-	public void setDestinos(List<Destino> destinos) {
-		this.destinos = destinos;
 	}
 
 	public Set<String> getTelefones() {

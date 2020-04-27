@@ -80,39 +80,39 @@ public class TheBestWayApplication implements CommandLineRunner {
 
 		estado1.getCidades().addAll(Arrays.asList(cidade1));
 		estado2.getCidades().addAll(Arrays.asList(cidade2, cidade3));
+		
+		/** Tabela Destino **/
+		
+		Destino destino1 = new Destino(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidade1);
+		Destino destino2 = new Destino(null, "Avenida Matos", "105", "Apto 101", "Centro", "38777012",
+				cidade2);
+
+		
+		Destino destino3 = new Destino(null, "Rua Flores 2", "300", "Apto 303", "Jardim", "38220834", cidade1);
+		Destino destino4 = new Destino(null, "Avenida Matos 2", "105", "Apto 101", "Centro", "38777012",
+				cidade2);
 
 		estadoRepository.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
+		destinoRepository.saveAll(Arrays.asList(destino1, destino2, destino3, destino4));
 
-		/** Tabela Usuario-Destinos **/
+		/** Tabela Usuario **/
 		Usuario usuario = new Usuario(null, "Apollo Creed", "apollocreed@gmail.com", "33925814803", "123", 1);
 		usuario.getTelefones().addAll(Arrays.asList("36887711", "997364786"));
-
-		Destino destino1 = new Destino(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", usuario, cidade1);
-		Destino destino2 = new Destino(null, "Avenida Matos", "105", "Apto 101", "Centro", "38777012", usuario,
-				cidade2);
-
-		Destino destino3 = new Destino(null, "Rua Flores 2", "300", "Apto 303", "Jardim", "38220834", usuario, cidade1);
-		Destino destino4 = new Destino(null, "Avenida Matos 2", "105", "Apto 101", "Centro", "38777012", usuario,
-				cidade2);
-
-		// Duas Viagens - Local onde usuario estava (destino1, destino3) - Destino Final
-		// do Usuario (destino2, destino4)
-		usuario.getDestinos().addAll(Arrays.asList(destino1, destino2, destino3, destino4));
-		
 		usuarioRepository.saveAll(Arrays.asList(usuario));
-		usuarioRepository.saveAll(Arrays.asList(usuario));
-		destinoRepository.saveAll(Arrays.asList(destino1, destino2, destino3, destino4));
+	
 
 		/** Pedidos e suas Associacoes - Pagamento **/
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		// Viagem 1
-		Pedido pedido1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), usuario, destino2);
+		Pedido pedido1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), usuario);
+		pedido1.getDestinos().addAll(Arrays.asList(destino1.getId(), destino2.getId()));
 
 		// Viagem 2
-		Pedido pedido2 = new Pedido(null, sdf.parse("01/11/2017 08:47"), usuario, destino4);
-
+		Pedido pedido2 = new Pedido(null, sdf.parse("01/11/2017 08:47"), usuario);
+		pedido2.getDestinos().addAll(Arrays.asList(destino2.getId(), destino1.getId()));
+		
 		Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, "1234567890", 1,
 				sdf.parse("30/09/2017 10:32"), TipoCartao.CREDITO);
 		pedido1.setPagamento(pagamento1);

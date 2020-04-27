@@ -1,11 +1,15 @@
 package br.com.fiap.thebestway.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido implements Serializable {
@@ -33,9 +36,9 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
-	@ManyToOne
-	@JoinColumn(name = "destino_final_id")
-	private Destino destinoFinal;
+	@ElementCollection
+	@CollectionTable(name = "PEDIDO_DESTINO")
+	private List<Integer> destinos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<CarroPedido> corrida = new HashSet<>();
@@ -43,12 +46,11 @@ public class Pedido implements Serializable {
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date instante, Usuario usuario, Destino destinoFinal) {
+	public Pedido(Integer id, Date instante, Usuario usuario) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.usuario = usuario;
-		this.destinoFinal = destinoFinal;
 	}
 
 	public Integer getId() {
@@ -83,13 +85,6 @@ public class Pedido implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Destino getDestinoFinal() {
-		return destinoFinal;
-	}
-
-	public void setDestinoFinal(Destino destinoFinal) {
-		this.destinoFinal = destinoFinal;
-	}
 
 	public Set<CarroPedido> getCorrida() {
 		return corrida;
@@ -97,6 +92,14 @@ public class Pedido implements Serializable {
 
 	public void setCorrida(Set<CarroPedido> corrida) {
 		this.corrida = corrida;
+	}
+	
+	public List<Integer> getDestinos() {
+		return destinos;
+	}
+
+	public void setDestinos(List<Integer> destinos) {
+		this.destinos = destinos;
 	}
 
 	@Override
