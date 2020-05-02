@@ -2,9 +2,7 @@ package br.com.fiap.thebestway.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
+import javax.persistence.Column;
 
 import br.com.fiap.thebestway.domain.Carro;
 
@@ -12,21 +10,16 @@ public class CarroDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-
-	@NotEmpty(message = "Campo Obrigatório")
-	@Length(min = 5, max = 30, message = "O tamanho deve ser entre 5 e 30 caracteres")
 	private String marca;
-
-	@NotEmpty(message = "Campo Obrigatório")
-	@Length(min = 5, max = 30, message = "O tamanho deve ser entre 5 e 30 caracteres")
 	private String modelo;
-
-	@NotEmpty(message = "Campo Obrigatório")
-	@Length(min = 6, max = 8, message = "O tamanho deve ser entre 5 e 8 caracteres")
 	private String placa;
 
+	@Column(name = "nota_media")
 	private Double notaMediaDeViagem;
+
+	@Column(name = "total_corridas")
 	private Integer quantidadeDeCorridas;
+
 	private Integer disponibilidade;
 
 	public CarroDTO(Integer id, String marca, String modelo, String placa, Double notaMediaDeViagem,
@@ -106,5 +99,4 @@ public class CarroDTO implements Serializable {
 	public void setDisponibilidade(Integer disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
-
 }

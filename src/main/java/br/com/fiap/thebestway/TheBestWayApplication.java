@@ -97,8 +97,7 @@ public class TheBestWayApplication implements CommandLineRunner {
 		destinoRepository.saveAll(Arrays.asList(destino1, destino2, destino3, destino4));
 
 		/** Tabela Usuario **/
-		Usuario usuario = new Usuario(null, "Apollo Creed", "apollocreed@gmail.com", "33925814803", "123", 1);
-		usuario.getTelefones().addAll(Arrays.asList("36887711", "997364786"));
+		Usuario usuario = new Usuario(null, "Apollo Creed", "apollocreed@gmail.com", "33925814803", "123", "997364786", 1);
 		usuarioRepository.saveAll(Arrays.asList(usuario));
 	
 

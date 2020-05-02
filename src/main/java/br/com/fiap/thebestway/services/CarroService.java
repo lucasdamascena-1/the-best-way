@@ -34,8 +34,9 @@ public class CarroService {
 	}
 
 	public Carro update(Carro obj) {
-		find(obj.getId());
-		return repository.save(obj);
+		Carro newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repository.save(newObj);
 	}
 
 	public void deleteById(Integer id) {
@@ -47,13 +48,27 @@ public class CarroService {
 		}
 	}
 
-	public Carro fromCarroDTO(CarroDTO objDTO, boolean isInsertMethod) {
-
+	public Carro fromCarroDTO(CarroDTO objDTO, boolean isInsertMethod) throws NullPointerException {
 		if (isInsertMethod) {
+			if (objDTO.getMarca() == null || objDTO.getModelo() == null || objDTO.getPlaca() == null) {
+				throw new NullPointerException("Valores inicializados com NULL.");
+			}
+
 			return new Carro(null, objDTO.getMarca(), objDTO.getModelo(), objDTO.getPlaca(), 0.0, 0, 0);
+		} else {
+			if (objDTO.getNotaMediaDeViagem() == null || objDTO.getQuantidadeDeCorridas() == null
+					|| objDTO.getDisponibilidade() == null) {
+				throw new NullPointerException("Valores alterados para NULL.");
+			}
 		}
 
 		return new Carro(objDTO.getId(), objDTO.getMarca(), objDTO.getModelo(), objDTO.getPlaca(),
 				objDTO.getNotaMediaDeViagem(), objDTO.getQuantidadeDeCorridas(), objDTO.getDisponibilidade());
+	}
+
+	private void updateData(Carro newObj, Carro obj) {
+		newObj.setNotaMediaDeViagem(obj.getNotaMediaDeViagem());
+		newObj.setQuantidadeDeCorridas(obj.getQuantidadeDeCorridas());
+		newObj.setDisponibilidade(obj.getDisponibilidade());
 	}
 }

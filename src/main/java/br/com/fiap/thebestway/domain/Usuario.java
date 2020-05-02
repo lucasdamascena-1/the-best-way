@@ -2,12 +2,8 @@ package br.com.fiap.thebestway.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,11 +23,8 @@ public class Usuario implements Serializable {
 	private String email;
 	private String cpf;
 	private String senha;
+	private String telefone;
 	private Integer status;
-
-	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
-	private Set<String> telefones = new HashSet<>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
@@ -40,13 +33,14 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 
-	public Usuario(Integer id, String nome, String email, String cpf, String senha, Integer status) {
+	public Usuario(Integer id, String nome, String email, String cpf, String senha, String telefone, Integer status) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpf = cpf;
 		this.senha = senha;
+		this.telefone = telefone;
 		this.status = status;
 	}
 
@@ -98,12 +92,12 @@ public class Usuario implements Serializable {
 		this.status = status;
 	}
 
-	public Set<String> getTelefones() {
-		return telefones;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public List<Pedido> getPedidos() {
