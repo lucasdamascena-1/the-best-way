@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 
 import br.com.fiap.thebestway.domain.Carro;
+import br.com.fiap.thebestway.domain.validation.CarroInsert;
 
+@CarroInsert
 public class CarroNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 

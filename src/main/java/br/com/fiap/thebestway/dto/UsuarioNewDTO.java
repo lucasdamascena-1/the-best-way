@@ -2,6 +2,9 @@ package br.com.fiap.thebestway.dto;
 
 import javax.validation.constraints.NotEmpty;
 
+import br.com.fiap.thebestway.domain.validation.UsuarioInsert;
+
+@UsuarioInsert
 public class UsuarioNewDTO {
 
 	@NotEmpty(message = "Preenchimento obrigatório")

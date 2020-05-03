@@ -60,6 +60,7 @@ public class UsuarioService {
 
 	private void updateData(Usuario newObj, Usuario obj) {
 		newObj.setSenha(obj.getSenha());
+		newObj.setTelefone(obj.getTelefone());
 		newObj.setStatus(obj.getStatus());
 	}
 }

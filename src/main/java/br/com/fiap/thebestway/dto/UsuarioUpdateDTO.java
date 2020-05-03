@@ -3,6 +3,9 @@ package br.com.fiap.thebestway.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import br.com.fiap.thebestway.domain.validation.UsuarioUpdate;
+
+@UsuarioUpdate
 public class UsuarioUpdateDTO {
 
 	private Integer id;
