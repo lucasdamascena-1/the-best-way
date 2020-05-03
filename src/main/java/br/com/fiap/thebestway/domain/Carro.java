@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,11 +22,18 @@ public class Carro implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String marca;
+
 	private String modelo;
+
+	@Column(unique = true)
 	private String placa;
+
 	private Double notaMediaDeViagem;
+
 	private Integer quantidadeDeCorridas;
+
 	private Integer disponibilidade;
 
 	@JsonIgnore

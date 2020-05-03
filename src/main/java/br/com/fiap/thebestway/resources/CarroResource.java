@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.fiap.thebestway.domain.Carro;
-import br.com.fiap.thebestway.dto.CarroDTO;
+import br.com.fiap.thebestway.dto.CarroNewDTO;
+import br.com.fiap.thebestway.dto.CarroUpdateDTO;
 import br.com.fiap.thebestway.services.CarroService;
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -39,8 +40,8 @@ public class CarroResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody CarroDTO objDTO) {
-		Carro obj = service.fromCarroDTO(objDTO, true);
+	public ResponseEntity<Void> insert(@Valid @RequestBody CarroNewDTO objDTO) {
+		Carro obj = service.fromCarroDTO(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
@@ -48,8 +49,8 @@ public class CarroResource {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody CarroDTO objDTO, @PathVariable Integer id) {
-		Carro obj = service.fromCarroDTO(objDTO, false);
+	public ResponseEntity<Void> update(@Valid @RequestBody CarroUpdateDTO objDTO, @PathVariable Integer id) {
+		Carro obj = service.fromCarroDTO(objDTO);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

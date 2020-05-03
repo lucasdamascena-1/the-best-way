@@ -8,7 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.thebestway.domain.Carro;
-import br.com.fiap.thebestway.dto.CarroDTO;
+import br.com.fiap.thebestway.dto.CarroNewDTO;
+import br.com.fiap.thebestway.dto.CarroUpdateDTO;
 import br.com.fiap.thebestway.repositories.CarroRepository;
 import br.com.fiap.thebestway.services.exception.DataIntegrityException;
 import br.com.fiap.thebestway.services.exception.ObjectNotFoundException;
@@ -48,22 +49,13 @@ public class CarroService {
 		}
 	}
 
-	public Carro fromCarroDTO(CarroDTO objDTO, boolean isInsertMethod) throws NullPointerException {
-		if (isInsertMethod) {
-			if (objDTO.getMarca() == null || objDTO.getModelo() == null || objDTO.getPlaca() == null) {
-				throw new NullPointerException("Valores inicializados com NULL.");
-			}
+	public Carro fromCarroDTO(CarroNewDTO objDTO) {
+		return new Carro(null, objDTO.getMarca(), objDTO.getModelo(), objDTO.getPlaca(), 0.0, 0, 0);
+	}
 
-			return new Carro(null, objDTO.getMarca(), objDTO.getModelo(), objDTO.getPlaca(), 0.0, 0, 0);
-		} else {
-			if (objDTO.getNotaMediaDeViagem() == null || objDTO.getQuantidadeDeCorridas() == null
-					|| objDTO.getDisponibilidade() == null) {
-				throw new NullPointerException("Valores alterados para NULL.");
-			}
-		}
-
-		return new Carro(objDTO.getId(), objDTO.getMarca(), objDTO.getModelo(), objDTO.getPlaca(),
-				objDTO.getNotaMediaDeViagem(), objDTO.getQuantidadeDeCorridas(), objDTO.getDisponibilidade());
+	public Carro fromCarroDTO(CarroUpdateDTO objDTO) {
+		return new Carro(objDTO.getId(), null, null, null, objDTO.getNotaMediaDeViagem(),
+				objDTO.getQuantidadeDeCorridas(), objDTO.getDisponibilidade());
 	}
 
 	private void updateData(Carro newObj, Carro obj) {

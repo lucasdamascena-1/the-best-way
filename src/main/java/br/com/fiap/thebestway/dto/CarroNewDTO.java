@@ -2,54 +2,36 @@ package br.com.fiap.thebestway.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 
 import br.com.fiap.thebestway.domain.Carro;
 
-public class CarroDTO implements Serializable {
+public class CarroNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String marca;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String modelo;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String placa;
 
-	@Column(name = "nota_media")
 	private Double notaMediaDeViagem;
-
-	@Column(name = "total_corridas")
 	private Integer quantidadeDeCorridas;
-
 	private Integer disponibilidade;
 
-	public CarroDTO(Integer id, String marca, String modelo, String placa, Double notaMediaDeViagem,
-			Integer quantidadeDeCorridas, Integer disponibilidade) {
-		super();
-		this.id = id;
-		this.marca = marca;
-		this.modelo = modelo;
-		this.placa = placa;
-		this.notaMediaDeViagem = notaMediaDeViagem;
-		this.quantidadeDeCorridas = quantidadeDeCorridas;
-		this.disponibilidade = disponibilidade;
+	public CarroNewDTO() {
 	}
 
-	public CarroDTO() {
-	}
-
-	public CarroDTO(Carro obj) {
-		this.id = obj.getId();
+	public CarroNewDTO(Carro obj) {
 		this.marca = obj.getMarca();
 		this.modelo = obj.getModelo();
 		this.placa = obj.getPlaca();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+		this.notaMediaDeViagem = obj.getNotaMediaDeViagem();
+		this.quantidadeDeCorridas = obj.getQuantidadeDeCorridas();
+		this.disponibilidade = obj.getDisponibilidade();
 	}
 
 	public String getMarca() {
