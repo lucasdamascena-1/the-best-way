@@ -8,7 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.thebestway.domain.Usuario;
-import br.com.fiap.thebestway.dto.UsuarioDTO;
+import br.com.fiap.thebestway.dto.UsuarioNewDTO;
+import br.com.fiap.thebestway.dto.UsuarioUpdateDTO;
 import br.com.fiap.thebestway.repositories.UsuarioRepository;
 import br.com.fiap.thebestway.services.exception.DataIntegrityException;
 import br.com.fiap.thebestway.services.exception.ObjectNotFoundException;
@@ -48,29 +49,16 @@ public class UsuarioService {
 		}
 	}
 
-	public Usuario fromUsuarioDTO(UsuarioDTO objDTO, boolean isInsertMethod) {
+	public Usuario fromUsuarioDTO(UsuarioNewDTO objDTO) {
+		return new Usuario(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpf(), objDTO.getSenha(),
+				objDTO.getTelefone(), 1);
+	}
 
-		if (isInsertMethod) {
-
-			if (objDTO.getNome() == null || objDTO.getEmail() == null || objDTO.getCpf()  == null
-					|| objDTO.getSenha() == null || objDTO.getTelefone() == null) {
-				throw new NullPointerException("Valores inicializados com NULL.");
-			}
-
-			return new Usuario(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpf(), objDTO.getSenha(), objDTO.getTelefone(), 1);
-
-		} else {
-			if (objDTO.getEmail() == null || objDTO.getSenha() == null || objDTO.getStatus() == null) {
-				throw new NullPointerException("Valores alterados para NULL.");
-			}
-		}
-
-		return new Usuario(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), objDTO.getCpf(), objDTO.getSenha(), objDTO.getTelefone(),
-				objDTO.getStatus());
+	public Usuario fromUsuarioDTO(UsuarioUpdateDTO objDTO) {
+		return new Usuario(null, null, null, null, objDTO.getSenha(), objDTO.getTelefone(), objDTO.getStatus());
 	}
 
 	private void updateData(Usuario newObj, Usuario obj) {
-		newObj.setEmail(obj.getEmail());
 		newObj.setSenha(obj.getSenha());
 		newObj.setStatus(obj.getStatus());
 	}

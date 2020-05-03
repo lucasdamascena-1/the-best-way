@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.fiap.thebestway.domain.Usuario;
-import br.com.fiap.thebestway.dto.UsuarioDTO;
+import br.com.fiap.thebestway.dto.UsuarioNewDTO;
+import br.com.fiap.thebestway.dto.UsuarioUpdateDTO;
 import br.com.fiap.thebestway.services.UsuarioService;
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -39,8 +40,8 @@ public class UsuarioResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO objDTO) {
-		Usuario obj = service.fromUsuarioDTO(objDTO, true);
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioNewDTO objDTO) {
+		Usuario obj = service.fromUsuarioDTO(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
@@ -48,8 +49,8 @@ public class UsuarioResource {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDTO, @PathVariable Integer id) {
-		Usuario obj = service.fromUsuarioDTO(objDTO, false);
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioUpdateDTO objDTO, @PathVariable Integer id) {
+		Usuario obj = service.fromUsuarioDTO(objDTO);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

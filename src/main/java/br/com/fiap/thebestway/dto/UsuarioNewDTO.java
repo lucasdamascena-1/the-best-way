@@ -1,24 +1,33 @@
 package br.com.fiap.thebestway.dto;
 
-public class UsuarioDTO {
+import javax.validation.constraints.NotEmpty;
 
-	private Integer id;
+public class UsuarioNewDTO {
+
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String nome;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String email;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpf;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String senha;
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefone;
+
 	private Integer status;
 
-	public UsuarioDTO() {
+	public UsuarioNewDTO() {
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public UsuarioNewDTO(String nome, String email, String cpf, String senha, String telefone, Integer status) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.cpf = cpf;
+		this.senha = senha;
+		this.telefone = telefone;
+		this.status = status;
 	}
 
 	public String getNome() {
