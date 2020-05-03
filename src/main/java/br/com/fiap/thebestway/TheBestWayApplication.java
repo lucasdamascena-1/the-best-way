@@ -125,8 +125,8 @@ public class TheBestWayApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2));
 
-		CarroPedido carroPedido1 = new CarroPedido(pedido1, carro1, 0.75, 0.0, 11.50, 0.0, 11.50);
-		CarroPedido carroPedido2 = new CarroPedido(pedido2, carro2, 0.75, 0.0, 20.50, 0.0, 20.50);
+		CarroPedido carroPedido1 = new CarroPedido(pedido1, carro1, 0.75, 0.0, 11.50, 0.0);
+		CarroPedido carroPedido2 = new CarroPedido(pedido2, carro2, 0.75, 0.0, 20.50, 0.0);
 
 		pedido1.getCorrida().addAll(Arrays.asList(carroPedido1));
 		pedido2.getCorrida().addAll(Arrays.asList(carroPedido2));

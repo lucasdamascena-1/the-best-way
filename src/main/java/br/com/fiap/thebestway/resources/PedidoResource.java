@@ -1,5 +1,7 @@
 package br.com.fiap.thebestway.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,12 @@ public class PedidoResource {
 
 	@Autowired
 	private PedidoService service;
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Pedido>> findAll() {
+		List<Pedido> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) throws ObjectNotFoundException {

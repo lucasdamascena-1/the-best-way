@@ -1,5 +1,6 @@
 package br.com.fiap.thebestway.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,12 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository repository;
 
+	public List<Pedido> findAll() {
+		return repository.findAll();
+	}
+
 	public Pedido find(Integer id) throws ObjectNotFoundException {
 		Optional<Pedido> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado!"));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
 	}
 }

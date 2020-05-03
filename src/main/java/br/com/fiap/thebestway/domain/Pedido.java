@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-
 @Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -85,7 +84,6 @@ public class Pedido implements Serializable {
 		this.usuario = usuario;
 	}
 
-
 	public Set<CarroPedido> getCorrida() {
 		return corrida;
 	}
@@ -93,13 +91,23 @@ public class Pedido implements Serializable {
 	public void setCorrida(Set<CarroPedido> corrida) {
 		this.corrida = corrida;
 	}
-	
+
 	public List<Integer> getDestinos() {
 		return destinos;
 	}
 
 	public void setDestinos(List<Integer> destinos) {
 		this.destinos = destinos;
+	}
+
+	public double getValorTotal() {
+		double soma = 0.0;
+
+		for (CarroPedido cp : corrida) {
+			soma += cp.getSubTotal();
+		}
+
+		return soma;
 	}
 
 	@Override
