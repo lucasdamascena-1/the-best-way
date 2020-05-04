@@ -15,7 +15,6 @@ public class CarroPedido implements Serializable {
 	@EmbeddedId
 	private CarroPedidoPK id = new CarroPedidoPK();
 
-	
 	private Double custoFixo;
 	private Double desconto;
 	private Double extras;
@@ -33,14 +32,22 @@ public class CarroPedido implements Serializable {
 		this.extras = extras;
 		this.preco = preco;
 	}
-	
+
 	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
 
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido);
+	}
+
 	public Carro getCarro() {
 		return id.getCarro();
+	}
+
+	public void setCarro(Carro carro) {
+		id.setCarro(carro);
 	}
 
 	public Double getCustoFixo() {
@@ -70,7 +77,7 @@ public class CarroPedido implements Serializable {
 	public void setExtras(Double extras) {
 		this.extras = extras;
 	}
-	
+
 	public Double getPreco() {
 		return preco;
 	}
@@ -78,7 +85,6 @@ public class CarroPedido implements Serializable {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
 
 	@Override
 	public int hashCode() {

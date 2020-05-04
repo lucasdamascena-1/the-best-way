@@ -80,26 +80,23 @@ public class TheBestWayApplication implements CommandLineRunner {
 
 		estado1.getCidades().addAll(Arrays.asList(cidade1));
 		estado2.getCidades().addAll(Arrays.asList(cidade2, cidade3));
-		
-		/** Tabela Destino **/
-		
-		Destino destino1 = new Destino(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidade1);
-		Destino destino2 = new Destino(null, "Avenida Matos", "105", "Apto 101", "Centro", "38777012",
-				cidade2);
 
-		
+		/** Tabela Destino **/
+
+		Destino destino1 = new Destino(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidade1);
+		Destino destino2 = new Destino(null, "Avenida Matos", "105", "Apto 101", "Centro", "38777012", cidade2);
+
 		Destino destino3 = new Destino(null, "Rua Flores 2", "300", "Apto 303", "Jardim", "38220834", cidade1);
-		Destino destino4 = new Destino(null, "Avenida Matos 2", "105", "Apto 101", "Centro", "38777012",
-				cidade2);
+		Destino destino4 = new Destino(null, "Avenida Matos 2", "105", "Apto 101", "Centro", "38777012", cidade2);
 
 		estadoRepository.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		destinoRepository.saveAll(Arrays.asList(destino1, destino2, destino3, destino4));
 
 		/** Tabela Usuario **/
-		Usuario usuario = new Usuario(null, "Apollo Creed", "apollocreed@gmail.com", "33925814803", "123", "997364786", 1);
+		Usuario usuario = new Usuario(null, "Apollo Creed", "apollocreed@gmail.com", "33925814803", "123", "997364786",
+				1);
 		usuarioRepository.saveAll(Arrays.asList(usuario));
-	
 
 		/** Pedidos e suas Associacoes - Pagamento **/
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -111,13 +108,13 @@ public class TheBestWayApplication implements CommandLineRunner {
 		// Viagem 2
 		Pedido pedido2 = new Pedido(null, sdf.parse("01/11/2017 08:47"), usuario);
 		pedido2.getDestinos().addAll(Arrays.asList(destino2.getId(), destino1.getId()));
-		
+
 		Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, "1234567890", 1,
-				sdf.parse("30/09/2017 10:32"), TipoCartao.CREDITO);
+				TipoCartao.CREDITO);
 		pedido1.setPagamento(pagamento1);
 
-		Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2, "1234567890",
-				sdf.parse("30/10/2018 10:32"), sdf.parse("01/11/2018 23:59"), null);
+		Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2,
+				sdf.parse("01/11/2018 23:59"), null);
 		pedido2.setPagamento(pagamento2);
 
 		usuario.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
