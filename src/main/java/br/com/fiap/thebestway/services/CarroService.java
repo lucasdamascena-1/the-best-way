@@ -54,11 +54,15 @@ public class CarroService {
 	}
 
 	public Carro fromCarroDTO(CarroUpdateDTO objDTO) {
-		return new Carro(objDTO.getId(), null, null, null, objDTO.getNotaMediaDeViagem(),
+		return new Carro(objDTO.getId(), objDTO.getMarca(), objDTO.getModelo(), objDTO.getPlaca(), objDTO.getNotaMediaDeViagem(),
 				objDTO.getQuantidadeDeCorridas(), objDTO.getDisponibilidade());
 	}
 
 	private void updateData(Carro newObj, Carro obj) {
+		newObj.setId(obj.getId());
+		newObj.setMarca(obj.getMarca());
+		newObj.setModelo(obj.getModelo());	
+		newObj.setPlaca(obj.getPlaca());
 		newObj.setNotaMediaDeViagem(obj.getNotaMediaDeViagem());
 		newObj.setQuantidadeDeCorridas(obj.getQuantidadeDeCorridas());
 		newObj.setDisponibilidade(obj.getDisponibilidade());

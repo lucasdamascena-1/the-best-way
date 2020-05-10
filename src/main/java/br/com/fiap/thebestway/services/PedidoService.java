@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.thebestway.domain.CarroPedido;
-import br.com.fiap.thebestway.domain.Destino;
+//import br.com.fiap.thebestway.domain.Destino;
 import br.com.fiap.thebestway.domain.PagamentoComBoleto;
 import br.com.fiap.thebestway.domain.Pedido;
 import br.com.fiap.thebestway.domain.enums.EstadoPagamento;
