@@ -42,8 +42,7 @@ public class CarroResource {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CarroNewDTO objDTO) {
 		Carro obj = service.fromCarroDTO(objDTO);
-		obj = service.insert(obj);
-		//URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		obj = service.insert(obj);		
 
 		return ResponseEntity.noContent().build();
 	}
