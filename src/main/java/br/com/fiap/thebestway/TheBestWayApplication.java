@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
+/*import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;*/
 
 import br.com.fiap.thebestway.domain.Carro;
 import br.com.fiap.thebestway.domain.CarroPedido;
@@ -50,7 +50,7 @@ public class TheBestWayApplication implements CommandLineRunner {
 		SpringApplication.run(TheBestWayApplication.class, args);
 	}
 
-	@Configuration
+	/*@Configuration
 	@EnableWebMvc
 	public class WebConfig extends WebMvcConfigurerAdapter {
 		@Override
@@ -63,7 +63,7 @@ public class TheBestWayApplication implements CommandLineRunner {
 			registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 			registry.addResourceHandler("/webjars/").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		}
-	}
+	}*/
 
 	@Override
 	public void run(String... args) throws Exception {
