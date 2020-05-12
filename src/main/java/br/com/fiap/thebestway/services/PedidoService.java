@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fiap.thebestway.domain.CarroPedido;
-//import br.com.fiap.thebestway.domain.Destino;
 import br.com.fiap.thebestway.domain.PagamentoComBoleto;
 import br.com.fiap.thebestway.domain.Pedido;
 import br.com.fiap.thebestway.domain.enums.EstadoPagamento;
@@ -37,9 +36,6 @@ public class PedidoService {
 	private CarroService carroService;
 
 	@Autowired
-	private DestinoService destinoService;
-
-	@Autowired
 	private UsuarioService usuarioService;
 
 	public List<Pedido> findAll() {
@@ -56,6 +52,7 @@ public class PedidoService {
 		obj.setId(null);
 		obj.setInstante(new Date());
 		obj.setUsuario(usuarioService.find(obj.getUsuario().getId()));
+		
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 
@@ -63,17 +60,13 @@ public class PedidoService {
 			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
 			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
 		}
-
-		for (Integer id : obj.getDestinos()) {
-			destinoService.find(id);
-		}
-
+		
 		obj = pedidoRepository.save(obj);
 		pagamentoRepository.save(obj.getPagamento());
 
 		for (CarroPedido ip : obj.getCorrida()) {
-			ip.setDesconto(0.0);
-			ip.setCustoFixo(0.75);
+			ip.getDesconto();
+			ip.getCustoFixo();
 			ip.getExtras();
 			ip.getSubTotal();
 			ip.getPreco();

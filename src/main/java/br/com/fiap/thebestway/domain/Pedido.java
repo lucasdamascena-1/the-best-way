@@ -1,15 +1,11 @@
 package br.com.fiap.thebestway.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,21 +31,22 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
-	@ElementCollection
-	@CollectionTable(name = "PEDIDO_DESTINO")
-	private List<Integer> destinos = new ArrayList<>();
-
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<CarroPedido> corrida = new HashSet<>();
+
+	private String origem;
+	private String destino;
 
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date instante, Usuario usuario) {
+	public Pedido(Integer id, Date instante, Usuario usuario, String origem, String destino) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.usuario = usuario;
+		this.origem = origem;
+		this.destino = destino;
 	}
 
 	public Integer getId() {
@@ -92,14 +89,6 @@ public class Pedido implements Serializable {
 		this.corrida = corrida;
 	}
 
-	public List<Integer> getDestinos() {
-		return destinos;
-	}
-
-	public void setDestinos(List<Integer> destinos) {
-		this.destinos = destinos;
-	}
-
 	public double getValorTotal() {
 		double soma = 0.0;
 
@@ -108,6 +97,22 @@ public class Pedido implements Serializable {
 		}
 
 		return soma;
+	}
+
+	public String getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
 	}
 
 	@Override

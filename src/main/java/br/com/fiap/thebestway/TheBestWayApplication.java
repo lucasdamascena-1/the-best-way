@@ -15,9 +15,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import br.com.fiap.thebestway.domain.Carro;
 import br.com.fiap.thebestway.domain.CarroPedido;
-import br.com.fiap.thebestway.domain.Cidade;
-import br.com.fiap.thebestway.domain.Destino;
-import br.com.fiap.thebestway.domain.Estado;
 import br.com.fiap.thebestway.domain.Pagamento;
 import br.com.fiap.thebestway.domain.PagamentoComBoleto;
 import br.com.fiap.thebestway.domain.PagamentoComCartao;
@@ -27,9 +24,6 @@ import br.com.fiap.thebestway.domain.enums.EstadoPagamento;
 import br.com.fiap.thebestway.domain.enums.TipoCartao;
 import br.com.fiap.thebestway.repositories.CarroPedidoRepository;
 import br.com.fiap.thebestway.repositories.CarroRepository;
-import br.com.fiap.thebestway.repositories.CidadeRepository;
-import br.com.fiap.thebestway.repositories.DestinoRepository;
-import br.com.fiap.thebestway.repositories.EstadoRepository;
 import br.com.fiap.thebestway.repositories.PagamentoRepository;
 import br.com.fiap.thebestway.repositories.PedidoRepository;
 import br.com.fiap.thebestway.repositories.UsuarioRepository;
@@ -41,16 +35,7 @@ public class TheBestWayApplication implements CommandLineRunner {
 	private CarroRepository carroRepository;
 
 	@Autowired
-	private EstadoRepository estadoRepository;
-
-	@Autowired
-	private CidadeRepository cidadeRepository;
-
-	@Autowired
 	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private DestinoRepository destinoRepository;
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
@@ -64,23 +49,19 @@ public class TheBestWayApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(TheBestWayApplication.class, args);
 	}
-	
+
 	@Configuration
 	@EnableWebMvc
 	public class WebConfig extends WebMvcConfigurerAdapter {
 		@Override
 		public void addCorsMappings(CorsRegistry registry) {
-			registry.addMapping("/**")
-				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+			registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE",
+					"CONNECT");
 		}
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-		    registry.addResourceHandler("swagger-ui.html")
-		            .addResourceLocations("classpath:/META-INF/resources/");
-		    registry.addResourceHandler("/webjars/**")
-		            .addResourceLocations("classpath:/META-INF/resources/webjars/");
-		    
+			registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+			registry.addResourceHandler("/webjars/").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		}
 	}
 
@@ -94,29 +75,6 @@ public class TheBestWayApplication implements CommandLineRunner {
 
 		carroRepository.saveAll(Arrays.asList(carro1, carro2, carro3));
 
-		/** Relacionamento Estado - Cidade **/
-		Estado estado1 = new Estado(null, "Minas Gerais");
-		Estado estado2 = new Estado(null, "São Paulo");
-
-		Cidade cidade1 = new Cidade(null, "Uberlândia", estado1);
-		Cidade cidade2 = new Cidade(null, "São Paulo", estado2);
-		Cidade cidade3 = new Cidade(null, "Campinas", estado2);
-
-		estado1.getCidades().addAll(Arrays.asList(cidade1));
-		estado2.getCidades().addAll(Arrays.asList(cidade2, cidade3));
-
-		/** Tabela Destino **/
-
-		Destino destino1 = new Destino(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidade1);
-		Destino destino2 = new Destino(null, "Avenida Matos", "105", "Apto 101", "Centro", "38777012", cidade2);
-
-		Destino destino3 = new Destino(null, "Rua Flores 2", "300", "Apto 303", "Jardim", "38220834", cidade1);
-		Destino destino4 = new Destino(null, "Avenida Matos 2", "105", "Apto 101", "Centro", "38777012", cidade2);
-
-		estadoRepository.saveAll(Arrays.asList(estado1, estado2));
-		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
-		destinoRepository.saveAll(Arrays.asList(destino1, destino2, destino3, destino4));
-
 		/** Tabela Usuario **/
 		Usuario usuario = new Usuario(null, "Apollo Creed", "apollocreed@gmail.com", "33925814803", "123", "997364786",
 				1);
@@ -126,12 +84,10 @@ public class TheBestWayApplication implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		// Viagem 1
-		Pedido pedido1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), usuario);
-		pedido1.getDestinos().addAll(Arrays.asList(destino1.getId(), destino2.getId()));
+		Pedido pedido1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), usuario, "Endereco 1", "Endereco 2");
 
 		// Viagem 2
-		Pedido pedido2 = new Pedido(null, sdf.parse("01/11/2017 08:47"), usuario);
-		pedido2.getDestinos().addAll(Arrays.asList(destino2.getId(), destino1.getId()));
+		Pedido pedido2 = new Pedido(null, sdf.parse("01/11/2017 08:47"), usuario, "Endereco 2", "Endereco 1");
 
 		Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, "1234567890", 1,
 				TipoCartao.CREDITO);
